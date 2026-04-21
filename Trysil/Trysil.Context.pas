@@ -79,7 +79,9 @@ type
     function CreateDataset(const ASQL: String): TDataset;
 
     function CreateEntity<T: class>(): T; overload;
+    function CreateEntityList<T: class>(): TTList<T>;
     function CloneEntity<T: class>(const AEntity: T): T;
+    procedure FreeEntity<T: class>(const AEntity: T);
 
     function CreateTransaction(): TTTransaction;
     function CreateSession<T: class>(const AList: TList<T>): TTSession<T>;
@@ -229,9 +231,20 @@ begin
   FNewEntityCache.Add<T>(result);
 end;
 
+function TTContext.CreateEntityList<T>: TTList<T>;
+begin
+  result := TTObjectList<T>.Create(not FProvider.UseIdentityMap);
+end;
+
 function TTContext.CloneEntity<T>(const AEntity: T): T;
 begin
   result := FProvider.CloneEntity<T>(AEntity);
+end;
+
+procedure TTContext.FreeEntity<T>(const AEntity: T);
+begin
+  if not FProvider.UseIdentityMap then
+    AEntity.Free;
 end;
 
 function TTContext.CreateTransaction: TTTransaction;
