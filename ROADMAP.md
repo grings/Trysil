@@ -32,6 +32,5 @@
 
 - Async support
 - Query cache with invalidation
-- Projections / DTO mapping
 - HTTP enhancements (rate limiting, OpenAPI)
 - InterBase, MySQL/MariaDB drivers

@@ -14,7 +14,8 @@
   <a href="https://github.com/davidlastrucci/Trysil/blob/master/Licence.md"><img src="https://img.shields.io/badge/license-BSD--3--Clause-blue.svg" alt="License"></a>
   <a href="https://github.com/davidlastrucci/Trysil/stargazers"><img src="https://img.shields.io/github/stars/davidlastrucci/Trysil?style=social" alt="GitHub Stars"></a>
   <img src="https://img.shields.io/badge/Delphi-10.3%20%E2%80%94%2013-red" alt="Delphi 10.3 to 13">
-  <a href="https://getitnow.embarcadero.com/trysil-delphi-orm/"><img src="https://img.shields.io/badge/GetIt-available-orange.svg" alt="GetIt"></a></p>
+  <a href="https://getitnow.embarcadero.com/trysil-delphi-orm/"><img src="https://img.shields.io/badge/GetIt-available-orange.svg" alt="GetIt"></a>
+  <a href="https://trysil.lastrucci.net"><img src="https://img.shields.io/badge/blog-trysil.lastrucci.net-brightgreen.svg" alt="Blog"></a></p>
 
 ---
 
@@ -187,6 +188,7 @@ See the full [Setup guide](https://github.com/davidlastrucci/Trysil/blob/master/
 | Run Simple Demo | [Docs/RunSimpleDemo.md](https://github.com/davidlastrucci/Trysil/blob/master/Docs/RunSimpleDemo.md) |
 | Manual (English) | [PDF](https://www.lastrucci.net/trysil/trysil-en.pdf) |
 | Manual (Italiano) | [PDF](https://www.lastrucci.net/trysil/trysil-it.pdf) |
+| Blog | [trysil.lastrucci.net](https://trysil.lastrucci.net) |
 
 ## Architecture Overview
 
