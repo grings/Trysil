@@ -183,12 +183,12 @@ See the full [Setup guide](https://github.com/davidlastrucci/Trysil/blob/master/
 | Resource | Link |
 |---|---|
 | Online Help | [davidlastrucci.github.io/Trysil](https://davidlastrucci.github.io/Trysil) |
+| Blog | [trysil.lastrucci.net](https://trysil.lastrucci.net) |
 | Getting Started | [Docs/GettingStarted.md](https://github.com/davidlastrucci/Trysil/blob/master/Docs/GettingStarted.md) |
 | Simple Sample | [Docs/Sample.md](https://github.com/davidlastrucci/Trysil/blob/master/Docs/Sample.md) |
 | Run Simple Demo | [Docs/RunSimpleDemo.md](https://github.com/davidlastrucci/Trysil/blob/master/Docs/RunSimpleDemo.md) |
 | Manual (English) | [PDF](https://www.lastrucci.net/trysil/trysil-en.pdf) |
 | Manual (Italiano) | [PDF](https://www.lastrucci.net/trysil/trysil-it.pdf) |
-| Blog | [trysil.lastrucci.net](https://trysil.lastrucci.net) |
 
 ## Architecture Overview
 
