@@ -62,6 +62,7 @@ type
     FClonedEntities: TList<T>;
     FAllEntities: TList<T>;
     FEntities: TTList<T>;
+    FInsertedEntities: TObjectList<T>;
     FEntityStates: TDictionary<T, TTSessionState>;
 
     procedure CloneEntities;
@@ -145,16 +146,18 @@ begin
   FApplied := False;
   FCloned := TTClonedEntities<T>.Create(FProvider);
   FClonedEntities := TList<T>.Create;
-  FEntities := TTList<T>.Create;
   FAllEntities := TList<T>.Create;
+  FEntities := TTList<T>.Create;
+  FInsertedEntities := TObjectList<T>.Create(not FProvider.UseIdentityMap);
   FEntityStates := TDictionary<T, TTSessionState>.Create;
 end;
 
 destructor TTSession<T>.Destroy;
 begin
   FEntityStates.Free;
-  FAllEntities.Free;
+  FInsertedEntities.Free;
   FEntities.Free;
+  FAllEntities.Free;
   FClonedEntities.Free;
   FCloned.Free;
   inherited Destroy;
@@ -207,6 +210,7 @@ begin
   FEntities.Add(AEntity);
   FAllEntities.Add(AEntity);
   FEntityStates.Add(AEntity, TTSessionState.Inserted);
+  FInsertedEntities.Add(AEntity);
 end;
 
 procedure TTSession<T>.Update(const AClone: T);
