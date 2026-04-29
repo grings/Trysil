@@ -12,19 +12,29 @@
 > http://codenames.info/operation/orm/
 
 # Setup
-### Git Bush
+### Git Bash
 <pre>
 $ cd C:/
-$ mkdir Trysil
+$ git clone https://github.com/davidlastrucci/Trysil.git
 $ cd Trysil
-$ git init
-$ git remote add trysil https://github.com/davidlastrucci/Trysil.git
-$ git pull trysil master
 </pre>
 
 ### Build Lib
-Open **Trysil.groupproj** in Packages\\[Version] directory and Build packages (Trysil, Trysil.JSon and Trysil.Http) in all configurations and platforms you need.<br><br>
-The Lib\\[Version]\\\$(Platform)\\\$(Config) directory now contains all Bpl, Dcp and Dcu. 
+Open **Trysil.groupproj** in Packages\\[Version] directory and Build All to compile every package (Trysil, the database drivers, Trysil.JSon, Trysil.Http) in the configurations and platforms you need.<br><br>
+Alternatively, run **Build[Version].bat** in the Packages directory from a command prompt &mdash; it builds Win32 and Win64 in Debug and Release. To target other platforms, edit the file (one line) and pass them as the third argument, e.g. **"Win32 Win64 Linux64"**.<br><br>
+The Lib\\[Version]\\\$(Platform)\\\$(Config) directory now contains all Bpl, Dcp and Dcu.
+
+### Edition Compatibility
+Not every package builds on every Delphi edition &mdash; FireDAC drivers are gated by license:<br><br>
+
+|Driver|Community|Professional|Enterprise|Architect|
+|-|-|-|-|-|
+|Trysil.SQLite|✓|✓|✓|✓|
+|Trysil.PostgreSQL|✓ (localhost only)|✓ (localhost only)|✓|✓|
+|Trysil.FirebirdSQL|✓ (localhost / embedded)|✓ (localhost / embedded)|✓|✓|
+|Trysil.SqlServer|✗|✗|✓|✓|
+
+On Community and Professional, **Trysil.SqlServer** fails to compile because the FireDAC SQL Server units ship only with Enterprise and Architect. The build continues regardless and every other driver still produces its output.
 
 ### Environment Variables
 In Tools->Options->Environment Variables add a new User Variable:<br><br>
@@ -50,6 +60,7 @@ Create a new Delphi Project and in Project->Options->Building->Delphi Compiler s
 |Delphi 10.4 Sydney|270|21.0|
 |Delphi 11 Alexandria|280|22.0|
 |Delphi 12 Athens|290|23.0|
+|Delphi 13 Florence|370|37.0|
 ---
 
 Make With ❤ @davidlastrucci<br>
