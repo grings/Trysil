@@ -331,7 +331,7 @@ function TValidationAttribute.GetErrorMessage(const AMessage: String): String;
 begin
   result := FErrorMessage;
   if result.IsEmpty then
-    result := AMessage;
+    result := TTLanguage.Instance.Translate(AMessage);
 end;
 
 function TValidationAttribute.NullableValueToString(
