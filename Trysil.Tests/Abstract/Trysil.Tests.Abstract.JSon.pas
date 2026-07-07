@@ -23,8 +23,10 @@ uses
   Trysil.Generics.Collections,
   Trysil.Context,
   Trysil.Data,
+  Trysil.Lazy,
   Trysil.JSon.Context,
   Trysil.JSon.Types,
+  Trysil.JSon.Sqids,
   Trysil.JSon.Exceptions,
 
   Trysil.Tests.Abstract.Base,
@@ -56,6 +58,9 @@ type
 
     [Test]
     procedure EntityFromJSonEmptyArrayDoesNotReloadFromDB;
+
+    [Test]
+    procedure EntityFromJSonRoundTripsLazyReferenceIdWithSqids;
 
     [Test]
     procedure ListToJSonReturnsValidArray;
@@ -218,6 +223,46 @@ begin
   FCreatedEntities.Add(LRestored);
   Assert.AreEqual<Integer>(0, LRestored.Orders.Count,
     'Empty JSON array must leave the lazy list empty and valid, not reload from DB');
+end;
+
+procedure TTAbstractJSonTests.EntityFromJSonRoundTripsLazyReferenceIdWithSqids;
+var
+  LCustomer: TTestCustomer;
+  LOrder: TTestOrder;
+  LConfig: TTJSonSerializerConfig;
+  LLoadedOrder: TTestLazyOrder;
+  LJson: String;
+  LRestored: TTestLazyOrder;
+begin
+  LConfig := TTJSonSerializerConfig.Create(-1, False);
+
+  TTJSonSqids.Instance.UseSqids := True;
+  try
+    LCustomer := FJSonContext.CreateEntity<TTestCustomer>();
+    FCreatedEntities.Add(LCustomer);
+    LCustomer.Name := 'SqidsParent';
+    FJSonContext.Insert<TTestCustomer>(LCustomer);
+
+    LOrder := FJSonContext.CreateEntity<TTestOrder>();
+    FCreatedEntities.Add(LOrder);
+    LOrder.CustomerID := LCustomer.ID;
+    LOrder.Amount := 33.0;
+    FJSonContext.Insert<TTestOrder>(LOrder);
+
+    LLoadedOrder := FJSonContext.Get<TTestLazyOrder>(LOrder.ID);
+    FCreatedEntities.Add(LLoadedOrder);
+    Assert.AreEqual<Integer>(LCustomer.ID, LLoadedOrder.Customer.ID,
+      'Precondition: lazy reference must carry the customer FK');
+
+    LJson := FJSonContext.EntityToJSon<TTestLazyOrder>(LLoadedOrder, LConfig);
+
+    LRestored := FJSonContext.EntityFromJSon<TTestLazyOrder>(LJson);
+    FCreatedEntities.Add(LRestored);
+    Assert.AreEqual<Integer>(LCustomer.ID, LRestored.Customer.ID,
+      'Lazy reference FK must survive the Sqids encode/decode round-trip');
+  finally
+    TTJSonSqids.Instance.UseSqids := False;
+  end;
 end;
 
 procedure TTAbstractJSonTests.ListToJSonReturnsValidArray;

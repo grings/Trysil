@@ -109,7 +109,7 @@ begin
   begin
     LLazy := TTRttiLazy.Create(AObject);
     try
-      LLazy.ID := TTJSonSqids.Instance.Decode(LValue.ToString());
+      LLazy.ID := TTJSonSqids.Instance.Decode(LValue.Value);
     finally
       LLazy.Free;
     end;
