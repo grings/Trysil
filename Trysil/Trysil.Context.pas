@@ -456,18 +456,22 @@ procedure TTContext.ApplyAll<T>(
 var
   LTransaction: TTTransaction;
 begin
-  LTransaction := TTTransaction.Create(FWriteConnection);
+  LTransaction := nil;
+  if not FWriteConnection.InTransaction then
+    LTransaction := TTTransaction.Create(FWriteConnection);
   try
     try
       InsertAll<T>(AInsertList);
       UpdateAll<T>(AUpdateList);
       DeleteAll<T>(ADeleteList);
     except
-      LTransaction.Rollback;
+      if Assigned(LTransaction) then
+        LTransaction.Rollback;
       raise;
     end;
   finally
-    LTransaction.Free;
+    if Assigned(LTransaction) then
+      LTransaction.Free;
   end;
 end;
 
